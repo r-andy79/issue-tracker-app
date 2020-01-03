@@ -1,0 +1,5 @@
+*.pyc
+__pycache__
+env_issue_tracker
+db.sqlite3
+.vscode
