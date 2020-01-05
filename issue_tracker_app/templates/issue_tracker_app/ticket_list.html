@@ -1,10 +1,5 @@
-<html>
-
-<head>
-  <title>Issue Tracker App</title>
-</head>
-
-<body>
+{% extends 'issue_tracker_app/base.html' %}
+{% block content %}
   <div class="bugs">
     <h2>Bugs</h2>
     {% for ticket in tickets %}
@@ -26,9 +21,5 @@
     <p>{{ ticket.published_date }}</p>
     {% endif %}
     {% endfor %}
-
   </div>
-
-</body>
-
-</html>
+{% endblock %}
