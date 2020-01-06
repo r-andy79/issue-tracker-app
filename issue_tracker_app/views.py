@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Ticket
+from .forms import TicketForm
 
 # Create your views here.
 def ticket_list(request):
@@ -11,3 +12,17 @@ def ticket_list(request):
 def ticket_detail(request, pk):
     ticket = get_object_or_404(Ticket, pk=pk)
     return render(request, 'issue_tracker_app/ticket_detail.html', {'ticket': ticket})
+
+
+def ticket_new(request):
+    if request.method == "POST":
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.author = request.user
+            ticket.published_date = timezone.now()
+            ticket.save()
+            return redirect('ticket_detail', pk=ticket.pk)
+    else:
+        form = TicketForm()
+    return render(request, 'issue_tracker_app/ticket_edit.html', {'form': form})
