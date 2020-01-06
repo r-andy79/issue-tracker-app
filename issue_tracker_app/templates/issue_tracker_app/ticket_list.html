@@ -6,6 +6,7 @@
     {% if ticket.ticket_type == 'B' %}
     <h2><a href="{% url 'ticket_detail' pk=ticket.pk %}">{{ ticket.title }}</a></h2>
     <p>{{ ticket.ticket_type }}</p>
+    <p>{{ ticket.ticket_status }}</p>
     <p>{{ ticket.text }}</p>
     <p>{{ ticket.published_date }}</p>
     {% endif %}
@@ -17,6 +18,7 @@
     {% if ticket.ticket_type == 'F' %}
     <h2><a href="{% url 'ticket_detail' pk=ticket.pk %}">{{ ticket.title }}</a></h2>
     <p>{{ ticket.ticket_type }}</p>
+    <p>{{ ticket.ticket_status }}</p>
     <p>{{ ticket.text }}</p>
     <p>{{ ticket.published_date }}</p>
     {% endif %}
