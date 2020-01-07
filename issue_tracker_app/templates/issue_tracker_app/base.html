@@ -7,8 +7,22 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Issue tracker app</h1>
-  <a href="{% url 'ticket_new' %}">New ticket</a>
+  <nav>
+    <ul>
+      <li><a href="#">Login</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+      <li><a href="#">Register</a></li>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">New ticket</a></li>
+    </ul>
+  </nav>
+  {% if messages %}
+  <div>
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
   {% block content %}
   {% endblock %}
 </body>

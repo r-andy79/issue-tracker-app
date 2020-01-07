@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
+from django.contrib import auth, messages
 from .models import Ticket
 from .forms import TicketForm
 
@@ -26,3 +27,9 @@ def ticket_new(request):
     else:
         form = TicketForm()
     return render(request, 'issue_tracker_app/ticket_edit.html', {'form': form})
+
+
+def logout(request):
+    auth.logout(request)
+    messages.success(request, 'You have successfully been logged out')
+    return redirect(reverse('ticket_list'))
