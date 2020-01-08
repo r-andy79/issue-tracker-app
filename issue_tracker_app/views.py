@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from .models import Ticket
 from .forms import TicketForm, UserLoginForm
 
@@ -14,7 +15,7 @@ def ticket_detail(request, pk):
     ticket = get_object_or_404(Ticket, pk=pk)
     return render(request, 'issue_tracker_app/ticket_detail.html', {'ticket': ticket})
 
-
+@login_required(login_url='/accounts/login')
 def ticket_new(request):
     if request.method == "POST":
         form = TicketForm(request.POST)
@@ -29,6 +30,7 @@ def ticket_new(request):
     return render(request, 'issue_tracker_app/ticket_edit.html', {'form': form})
 
 
+@login_required(login_url='/accounts/login')
 def logout(request):
     """Log the user out"""
     auth.logout(request)
@@ -38,6 +40,8 @@ def logout(request):
 
 def login(request):
     """Return a login page"""
+    if request.user.is_authenticated:
+        return redirect(reverse('ticket_list'))
     if request.method == "POST":
         login_form = UserLoginForm(request.POST)
         if login_form.is_valid():
@@ -47,6 +51,7 @@ def login(request):
             if user:
                 auth.login(user=user, request=request)
                 messages.success(request, 'You have successfully logged in')
+                return redirect(reverse('ticket_list'))
             else:
                 login_form.add_error(None, "Your username or password is incorrect")
     else:
