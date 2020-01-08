@@ -14,7 +14,7 @@
       <li><a href="{% url 'ticket_new' %}">New ticket</a></li>
       <li><a href="#">Profile</a></li>  
       {% else %}
-      <li><a href="#">Register</a></li>
+      <li><a href="{% url 'registration' %}">Register</a></li>
       <li><a href="{% url 'login' %}">Login</a></li>
       {% endif %}
     </ul>

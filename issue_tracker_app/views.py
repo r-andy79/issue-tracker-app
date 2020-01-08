@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from .models import Ticket
-from .forms import TicketForm, UserLoginForm
+from .forms import TicketForm, UserLoginForm, UserRegistrationForm
 
 # Create your views here.
 def ticket_list(request):
@@ -57,3 +57,8 @@ def login(request):
     else:
         login_form = UserLoginForm()
     return render(request, 'issue_tracker_app/login.html', {'login_form': login_form})
+
+
+def registration(request):
+    registration_form = UserRegistrationForm()
+    return render(request, 'issue_tracker_app/registration.html', {'registration_form': registration_form})
