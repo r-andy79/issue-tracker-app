@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .models import Ticket
 from .forms import TicketForm, UserLoginForm, UserRegistrationForm
 
@@ -81,3 +82,9 @@ def registration(request):
     else:
         registration_form = UserRegistrationForm()
     return render(request, 'issue_tracker_app/registration.html', {'registration_form': registration_form})
+
+
+def user_profile(request):
+    """The user's profile"""
+    user = User.objects.get(email=request.user.email)
+    return render(request, 'issue_tracker_app/profile.html', {'profile': user})
