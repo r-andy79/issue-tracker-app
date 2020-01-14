@@ -1,6 +1,17 @@
 from django.contrib import admin
-from .models import Ticket
+from .models import Ticket, Comment
 
-admin.site.register(Ticket)
 
-# Register your models here.
+class CommentInLine(admin.TabularInline):
+    model = Comment
+    extra = 0
+
+
+class TicketAdmin(admin.ModelAdmin):
+    inlines = [
+        CommentInLine
+    ]
+
+
+admin.site.register(Ticket, TicketAdmin)
+admin.site.register(Comment)

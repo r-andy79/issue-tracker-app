@@ -1,4 +1,5 @@
 {% extends 'issue_tracker_app/base.html' %}
+{% block title %}Tickets{% endblock title %}
 {% block content %}
   <div class="bugs">
     <h2>Bugs</h2>
@@ -11,6 +12,11 @@
     <p>votes: {{ ticket.upvotes }}</p>
     <p>{{ ticket.published_date }}</p>
     {% endif %}
+    <div class="card-footer">
+      {% for comment in ticket.comments.all %}
+      <p><span>{{ comment.author }}: </span>{{ comment }}</p>
+      {% endfor %}
+    </div>
     {% endfor %}
   </div>
   <div class="features">
