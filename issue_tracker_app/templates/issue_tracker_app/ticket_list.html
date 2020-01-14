@@ -29,6 +29,11 @@
     <p>{{ ticket.text }}</p>
     <p>{{ ticket.published_date }}</p>
     {% endif %}
+    <div class="card-footer">
+      {% for comment in ticket.comments.all %}
+      <p><span>{{ comment.author }}: </span>{{ comment }}</p>
+      {% endfor %}
+    </div>
     {% endfor %}
   </div>
 {% endblock %}

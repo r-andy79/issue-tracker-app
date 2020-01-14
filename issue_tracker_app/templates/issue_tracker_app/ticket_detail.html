@@ -4,4 +4,9 @@
   <h2>{{ ticket.title}}</h2>
   <p>{{ ticket.text }}</p>
 </div>
+<div class="card-footer">
+  {% for comment in ticket.comments.all %}
+  <p><span>{{ comment.author }}: </span>{{ comment }}</p>
+  {% endfor %}
+</div>
 {% endblock %}
