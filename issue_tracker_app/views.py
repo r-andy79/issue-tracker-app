@@ -4,7 +4,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Ticket
-from .forms import TicketForm, UserLoginForm, UserRegistrationForm
+from .forms import TicketForm, UserLoginForm, UserRegistrationForm, CommentForm
 
 # Create your views here.
 def ticket_list(request):
@@ -15,6 +15,7 @@ def ticket_list(request):
 def ticket_detail(request, pk):
     ticket = get_object_or_404(Ticket, pk=pk)
     return render(request, 'issue_tracker_app/ticket_detail.html', {'ticket': ticket})
+
 
 @login_required(login_url='/accounts/login')
 def ticket_new(request):
@@ -88,3 +89,18 @@ def user_profile(request):
     """The user's profile"""
     user = User.objects.get(email=request.user.email)
     return render(request, 'issue_tracker_app/profile.html', {'profile': user})
+
+
+def add_comment_to_ticket(request, pk):
+    ticket = get_object_or_404(Ticket, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.ticket = ticket
+            comment.save()
+            return redirect('ticket_detail', pk=ticket.pk)
+    else:
+        form = CommentForm()
+    return render(request, 'issue_tracker_app/add_comment_to_ticket.html', {'form': form})

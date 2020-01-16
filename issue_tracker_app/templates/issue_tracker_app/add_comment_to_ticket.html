@@ -1,0 +1,9 @@
+{% extends 'issue_tracker_app/base.html' %}
+{% block content %}
+<h1>New comment</h1>
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit</button>
+</form>
+{% endblock %}

@@ -35,12 +35,12 @@ class Ticket(models.Model):
 
 class Comment(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='comments')
-    comment = models.CharField(max_length=140)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    comment_text = models.CharField(max_length=140)
 
 
     def __str__(self):
-        return self.comment
+        return self.comment_text
 
 
     def get_absolute_url(self):

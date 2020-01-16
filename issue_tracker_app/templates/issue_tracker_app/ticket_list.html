@@ -11,6 +11,7 @@
     <p>{{ ticket.text }}</p>
     <p>votes: {{ ticket.upvotes }}</p>
     <p>{{ ticket.published_date }}</p>
+    <p>Comments: {{ ticket.comments.count }}</p>
     {% endif %}
     <div class="card-footer">
       {% for comment in ticket.comments.all %}
@@ -28,6 +29,7 @@
     <p>{{ ticket.ticket_status }}</p>
     <p>{{ ticket.text }}</p>
     <p>{{ ticket.published_date }}</p>
+    <p>Comments: {{ ticket.comments.count }}</p>
     {% endif %}
     <div class="card-footer">
       {% for comment in ticket.comments.all %}

@@ -5,8 +5,11 @@
   <p>{{ ticket.text }}</p>
 </div>
 <div class="card-footer">
+  <a href="{% url 'add_comment_to_ticket' pk=ticket.pk %}">Add comment</a>
   {% for comment in ticket.comments.all %}
   <p><span>{{ comment.author }}: </span>{{ comment }}</p>
+  {% empty %}
+  <p>No comments here yet</p>
   {% endfor %}
 </div>
 {% endblock %}

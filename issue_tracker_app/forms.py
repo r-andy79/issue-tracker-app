@@ -2,13 +2,20 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
-from .models import Ticket
+from .models import Ticket, Comment
 
 class TicketForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
         fields = ('ticket_type', 'title', 'text')
+
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ('comment_text',)
 
 
 class UserLoginForm(forms.Form):
