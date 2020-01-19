@@ -91,6 +91,7 @@ def user_profile(request):
     return render(request, 'issue_tracker_app/profile.html', {'profile': user})
 
 
+@login_required(login_url='/accounts/login')
 def add_comment_to_ticket(request, pk):
     ticket = get_object_or_404(Ticket, pk=pk)
     if request.method == "POST":
