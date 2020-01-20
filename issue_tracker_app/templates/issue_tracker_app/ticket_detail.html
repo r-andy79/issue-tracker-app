@@ -2,6 +2,8 @@
 {% block content %}
 <div class="ticket">
   <h2>{{ ticket.title}}</h2>
+  <p>{{ ticket.ticket_type }}</p>
+  <p>{{ ticket.ticket_status }}</p>
   <p>{{ ticket.text }}</p>
 </div>
 <div class="card-footer">

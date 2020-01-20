@@ -2,42 +2,30 @@
 {% block title %}Tickets{% endblock title %}
 {% block content %}
 <div class="container">
-  <div class="bugs">
+  <div class="row">
+  <div class="bugs-wrapper col-9">
     <h2>Bugs</h2>
     {% for ticket in tickets %}
     {% if ticket.ticket_type == 'B' %}
     <h2><a href="{% url 'ticket_detail' pk=ticket.pk %}">{{ ticket.title }}</a></h2>
-    <p>{{ ticket.ticket_type }}</p>
-    <p>{{ ticket.ticket_status }}</p>
-    <p>{{ ticket.text }}</p>
+    <p>{{ ticket.text|truncatewords_html:5}}</p>
     <p>votes: {{ ticket.upvotes }}</p>
     <p>{{ ticket.published_date }}</p>
     <p>Comments: {{ ticket.comments.count }}</p>
     {% endif %}
-    <div class="card-footer">
-      {% for comment in ticket.comments.all %}
-      <p><span>{{ comment.author }}: </span>{{ comment }}</p>
-      {% endfor %}
-    </div>
     {% endfor %}
   </div>
-  <div class="features">
+  <div class="features-wrapper col-3">
     <h2>Features</h2>
     {% for ticket in tickets %}
     {% if ticket.ticket_type == 'F' %}
     <h2><a href="{% url 'ticket_detail' pk=ticket.pk %}">{{ ticket.title }}</a></h2>
-    <p>{{ ticket.ticket_type }}</p>
-    <p>{{ ticket.ticket_status }}</p>
-    <p>{{ ticket.text }}</p>
+    <p>{{ ticket.text|truncatewords_html:5}}</p>
     <p>{{ ticket.published_date }}</p>
     <p>Comments: {{ ticket.comments.count }}</p>
     {% endif %}
-    <div class="card-footer">
-      {% for comment in ticket.comments.all %}
-      <p><span>{{ comment.author }}: </span>{{ comment }}</p>
-      {% endfor %}
-    </div>
     {% endfor %}
   </div>
+</div>
 </div>
 {% endblock %}
