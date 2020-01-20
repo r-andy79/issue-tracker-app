@@ -1,6 +1,7 @@
 {% extends 'issue_tracker_app/base.html' %}
 {% block title %}Tickets{% endblock title %}
 {% block content %}
+<div class="container">
   <div class="bugs">
     <h2>Bugs</h2>
     {% for ticket in tickets %}
@@ -38,4 +39,5 @@
     </div>
     {% endfor %}
   </div>
+</div>
 {% endblock %}
