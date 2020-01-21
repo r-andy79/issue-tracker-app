@@ -9,7 +9,8 @@
     {% if ticket.ticket_type == 'B' %}
     <h2><a href="{% url 'ticket_detail' pk=ticket.pk %}">{{ ticket.title }}</a></h2>
     <p>{{ ticket.text|truncatewords_html:5}}</p>
-    <p>votes: {{ ticket.upvotes }}</p>
+    <p>{{ ticket.get_ticket_status_display }}</p>
+    <p>{{ ticket.get_ticket_type_display }}</p>
     <p>{{ ticket.published_date }}</p>
     <p>Comments: {{ ticket.comments.count }}</p>
     {% endif %}
@@ -20,7 +21,9 @@
     {% for ticket in tickets %}
     {% if ticket.ticket_type == 'F' %}
     <h2><a href="{% url 'ticket_detail' pk=ticket.pk %}">{{ ticket.title }}</a></h2>
+    <p>{{ ticket.get_ticket_type_display }}</p>
     <p>{{ ticket.text|truncatewords_html:5}}</p>
+    <p>{{ ticket.get_ticket_status_display }}</p>
     <p>{{ ticket.published_date }}</p>
     <p>Comments: {{ ticket.comments.count }}</p>
     {% endif %}
