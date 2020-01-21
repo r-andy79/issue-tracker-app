@@ -5,4 +5,9 @@
 {% block page_heading %}{{ user }}'s Profile {% endblock %}
 {% block content %}
 <p>{{ profile.email }}</p>
+<p>You're logged in as {{ profile.username }}</p>
+{% for ticket in tickets %}
+    <p>{{ ticket.title }}</p>
+    <p>{{ ticket.text }}</p>
+{% endfor %}
 {% endblock %}

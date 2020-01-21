@@ -3,12 +3,16 @@ from django.utils import timezone
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Ticket
+from .models import Ticket, Comment
 from .forms import TicketForm, UserLoginForm, UserRegistrationForm, CommentForm
 
 # Create your views here.
 def ticket_list(request):
+    """
+    Create a view that will return a list of Tickets
+    """
     tickets = Ticket.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    print(tickets)
     return render(request, 'issue_tracker_app/ticket_list.html', {'tickets': tickets})
 
 
@@ -88,7 +92,11 @@ def registration(request):
 def user_profile(request):
     """The user's profile"""
     user = User.objects.get(email=request.user.email)
-    return render(request, 'issue_tracker_app/profile.html', {'profile': user})
+    username = User.objects.get(username=request.user.username)
+    print(username)
+    tickets = Ticket.objects.filter(author=username)
+    print(tickets)
+    return render(request, 'issue_tracker_app/profile.html', {'profile': user, 'tickets': tickets})
 
 
 @login_required(login_url='/accounts/login')
