@@ -12,7 +12,6 @@ def ticket_list(request):
     Create a view that will return a list of Tickets
     """
     tickets = Ticket.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    print(tickets)
     return render(request, 'issue_tracker_app/ticket_list.html', {'tickets': tickets})
 
 
@@ -93,10 +92,25 @@ def user_profile(request):
     """The user's profile"""
     user = User.objects.get(email=request.user.email)
     username = User.objects.get(username=request.user.username)
-    print(username)
     tickets = Ticket.objects.filter(author=username)
-    print(tickets)
-    return render(request, 'issue_tracker_app/profile.html', {'profile': user, 'tickets': tickets})
+    tickets_count = Ticket.objects.filter(author=username).count()
+    bugs_count = Ticket.objects.filter(author=username, ticket_type='B').count()
+    features_count = Ticket.objects.filter(author=username, ticket_type='F').count()
+    to_do_count = Ticket.objects.filter(author=username, ticket_status ='T').count()
+    print(to_do_count)
+    doing_count = Ticket.objects.filter(author=username, ticket_status ='D').count()
+    print(doing_count)
+    done_count = Ticket.objects.filter(author=username, ticket_status ='C').count()
+    print(done_count)
+    return render(request, 'issue_tracker_app/profile.html', {'profile': user, 
+                                                              'tickets': tickets,
+                                                              'tickets_count': tickets_count, 
+                                                              'bugs_count': bugs_count, 
+                                                              'features_count': features_count,
+                                                              'to_do_count': to_do_count,
+                                                              'doing_count': doing_count,
+                                                              'done_count': done_count
+                                                              })
 
 
 @login_required(login_url='/accounts/login')

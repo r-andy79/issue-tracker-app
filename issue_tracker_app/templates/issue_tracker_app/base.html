@@ -6,8 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <title>{% block page_title%}{% endblock %}</title>
@@ -16,27 +15,26 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-        <nav class="col-2 nav-wrapper">
-          <ul class=nav-list>
-            {% if user.is_authenticated %}
-            <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
-            <li class="nav-item"><a href="{% url 'ticket_new' %}">New ticket</a></li>
-            <li class="nav-item"><a href="{% url 'profile' %}">Profile</a></li class="nav-item">
-            {% else %}
-            <li class="nav-item"><a href="{% url 'registration' %}">Register</a></li class="nav-item">
-            <li class="nav-item"><a href="{% url 'login' %}">Login</a></li class="nav-item">
-            {% endif %}
-          </ul>
-        </nav>
-        {% if messages %}
-        <div>
-          {% for message in messages %}
-          {{ message }}
-          {% endfor %}
-        </div>
-        {% endif %}
+      <nav class="col-2 nav-wrapper">
+        <ul class=nav-list>
+          {% if user.is_authenticated %}
+          <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+          <li class="nav-item"><a href="{% url 'ticket_new' %}">New ticket</a></li>
+          <li class="nav-item"><a href="{% url 'profile' %}">Profile</a></li class="nav-item">
+          {% else %}
+          <li class="nav-item"><a href="{% url 'registration' %}">Register</a></li class="nav-item">
+          <li class="nav-item"><a href="{% url 'login' %}">Login</a></li class="nav-item">
+          {% endif %}
+        </ul>
+      </nav>
+      {% if messages %}
+      <div>
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+      </div>
+      {% endif %}
       <div class="col-10">
-        <!--Tickets-->
         {% block content %}
         {% endblock %}
       </div>

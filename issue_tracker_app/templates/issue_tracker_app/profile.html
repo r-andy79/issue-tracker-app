@@ -6,6 +6,12 @@
 {% block content %}
 <p>{{ profile.email }}</p>
 <p>You're logged in as {{ profile.username }}</p>
+<p>You've raised {{ tickets_count }} tickets, {{ bugs_count }} were bugs, and {{ features_count }} were features</p>
+<ul>
+  <li>To do: {{ to_do_count }}</li>
+  <li>Doing: {{ doing_count }}</li>
+  <li>Done: {{ done_count }}</li>
+</ul>
 {% for ticket in tickets %}
     <p>{{ ticket.title }}</p>
     <p>{{ ticket.text }}</p>
