@@ -6,6 +6,7 @@
   <p>{{ ticket.get_ticket_status_display }}</p>
   <p>{{ ticket.text }}</p>
 </div>
+<a href="#">Vote</a>
 <div class="card-footer">
   <a href="{% url 'add_comment_to_ticket' pk=ticket.pk %}">Add comment</a>
   {% for comment in ticket.comments.all %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Ticket, Comment
+from .models import Ticket, Comment, Vote
 
 
 class CommentInLine(admin.TabularInline):
@@ -15,3 +15,4 @@ class TicketAdmin(admin.ModelAdmin):
 
 admin.site.register(Ticket, TicketAdmin)
 admin.site.register(Comment)
+admin.site.register(Vote)

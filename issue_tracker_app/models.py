@@ -45,3 +45,17 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('ticket_list')
+
+
+class Vote(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now=True)
+
+    
+    def __str__(self):
+        return str(self.user) + ":" + str(self.ticket)
+
+
+    class Meta:
+        unique_together = ("user", "ticket")
