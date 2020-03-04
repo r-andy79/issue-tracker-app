@@ -6,7 +6,11 @@
   <p>{{ ticket.get_ticket_status_display }}</p>
   <p>{{ ticket.text }}</p>
 </div>
-<a href="#">Vote</a>
+<a href="#" onClick="document.getElementById('votebutton').submit()">Vote</a>
+<form id="votebutton" method="POST" action="ticket/<int:pk>/vote">
+  {% csrf_token %}
+  <input type="hidden">
+</form>
 <div class="card-footer">
   <a href="{% url 'add_comment_to_ticket' pk=ticket.pk %}">Add comment</a>
   {% for comment in ticket.comments.all %}

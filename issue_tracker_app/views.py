@@ -124,3 +124,8 @@ def add_comment_to_ticket(request, pk):
     else:
         form = CommentForm()
     return render(request, 'issue_tracker_app/add_comment_to_ticket.html', {'form': form})
+
+
+def ticket_vote(request, pk):
+    ticket = get_object_or_404(Ticket, pk=pk)
+    
