@@ -54,7 +54,7 @@ class Vote(models.Model):
 
     
     def __str__(self):
-        return str(self.user) + ":" + str(self.ticket)
+        return str(self.user) + ":" + str(self.ticket) + str(self.date)
 
 
     class Meta:

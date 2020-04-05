@@ -10,5 +10,5 @@ urlpatterns = [
     path('accounts/login/', views.login, name='login'),
     path('accounts/registration/', views.registration, name='registration'),
     path('accounts/profile/', views.user_profile, name='profile'),
-    path('ticket/<int:pk>/vote', views.ticket_vote, name='ticket_vote')
+    path('ticket/<int:ticket_id>/user/<int:user_id>/vote', views.ticket_vote, name='ticket_vote')
 ]

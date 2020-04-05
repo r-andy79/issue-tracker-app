@@ -3,8 +3,9 @@ from django.utils import timezone
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Ticket, Comment
+from .models import Ticket, Comment, Vote
 from .forms import TicketForm, UserLoginForm, UserRegistrationForm, CommentForm
+from django.db import IntegrityError
 
 # Create your views here.
 def ticket_list(request):
@@ -16,8 +17,9 @@ def ticket_list(request):
 
 
 def ticket_detail(request, pk):
+    user = User.objects.get(email=request.user.email)
     ticket = get_object_or_404(Ticket, pk=pk)
-    return render(request, 'issue_tracker_app/ticket_detail.html', {'ticket': ticket})
+    return render(request, 'issue_tracker_app/ticket_detail.html', {'ticket': ticket, 'user': user})
 
 
 @login_required(login_url='/accounts/login')
@@ -125,7 +127,17 @@ def add_comment_to_ticket(request, pk):
         form = CommentForm()
     return render(request, 'issue_tracker_app/add_comment_to_ticket.html', {'form': form})
 
-
-def ticket_vote(request, pk):
-    ticket = get_object_or_404(Ticket, pk=pk)
+@login_required(login_url='/accounts/login')
+def ticket_vote(request, ticket_id, user_id):
+    user = User.objects.get(id=user_id)
+    ticket = Ticket.objects.get(id=ticket_id)
+    try:
+        vote = Vote(user=user, ticket=ticket, date=timezone.now())
+        vote.save()
+        messages.success(request, 'Your vote has been added.')
+    except IntegrityError as e:
+        messages.error(request, 'You can\'t vote twice')
+    except:
+        messages.error(request, 'Something went wrong')
+    return redirect('ticket_detail', pk=ticket.pk)
     
