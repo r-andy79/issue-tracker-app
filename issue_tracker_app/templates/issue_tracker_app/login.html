@@ -2,20 +2,23 @@
 {% load crispy_forms_tags %}
 {% block page_title %}Login page{% endblock %}
 {% block content %}
-<div class="container-fluid">
-  <h2>login page</h2>
-  <form method="POST">
-    {% csrf_token %}
-    {{login_form|crispy}}
-    <button type="submit">Login</button>
-  </form>
-  {% if messages %}
+<div class="row justify-content-center">
   <div>
     {% for message in messages %}
     {{ message }}
     {% endfor %}
   </div>
-  {% endif %}
+  <div class="col-4">
+    <h2>login page</h2>
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      {{login_form|crispy}}
+      <button type="submit" class="btn btn-primary">Login</button>
+      <a href="#" class="btn btn-link">Forgot your password?</a>
+    </form>
+    {% if messages %}
+    {% endif %}
+  </div>
 </div>
 
 {% endblock %}
