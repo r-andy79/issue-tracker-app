@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .models import Ticket, Comment, Vote
 from .forms import TicketForm, UserLoginForm, UserRegistrationForm, CommentForm
 from django.db import IntegrityError
+from crispy_forms.helper import FormHelper
 
 # Create your views here.
 def ticket_list(request):

@@ -1,17 +1,21 @@
 {% extends 'issue_tracker_app/base.html' %}
+{% load crispy_forms_tags %}
 {% block page_title %}Login page{% endblock %}
 {% block content %}
-<h2>login page</h2>
-<form method="POST">
-  {% csrf_token %}
-  {{login_form.as_p}}
-  <button type="submit">Login</button>
-</form>
-{% if messages %}
-<div>
-  {% for message in messages %}
-      {{ message }}
-  {% endfor %}
+<div class="container-fluid">
+  <h2>login page</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{login_form|crispy}}
+    <button type="submit">Login</button>
+  </form>
+  {% if messages %}
+  <div>
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
 </div>
-{% endif %}
+
 {% endblock %}
