@@ -25,7 +25,6 @@ def ticket_list(request):
 
 
 def ticket_detail(request, pk):
-    # email = request.user.get('email')
     print(request.user.is_authenticated)
     user = None
     if request.user.is_authenticated:

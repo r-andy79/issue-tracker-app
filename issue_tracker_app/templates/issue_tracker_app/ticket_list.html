@@ -13,6 +13,7 @@
         <p>{{ bug.get_ticket_type_display }}</p>
         <p>{{ bug.published_date }}</p>
         <p>Comments: {{ bug.comments.count }}</p>
+        <p>Upvotes: {{ bug.upvotes.count }}</p>
       </div>
     {% endfor %}
   </div>
@@ -26,6 +27,7 @@
         <p>{{ feature.get_ticket_status_display }}</p>
         <p>{{ feature.published_date }}</p>
         <p>Comments: {{ feature.comments.count }}</p>
+        <p>Upvotes: {{ feature.upvotes.count }}</p>
       </div>
       {% endfor %}
     </div>

@@ -19,7 +19,7 @@ class Ticket(models.Model):
 
     ticket_type = models.CharField(max_length=1, choices=TICKET_TYPES)
     ticket_status = models.CharField(max_length=1, choices=TICKET_STATUSES, default='T')
-    upvotes = models.IntegerField(default=0)
+    upvotes = models.ManyToManyField('auth.User', through='Vote', related_name='upvotes')
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
