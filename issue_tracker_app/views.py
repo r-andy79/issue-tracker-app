@@ -25,7 +25,11 @@ def ticket_list(request):
 
 
 def ticket_detail(request, pk):
-    user = User.objects.get(email=request.user.email)
+    # email = request.user.get('email')
+    print(request.user.is_authenticated)
+    user = None
+    if request.user.is_authenticated:
+        user = User.objects.get(email=request.user.email)
     ticket = get_object_or_404(Ticket, pk=pk)
     return render(request, 'issue_tracker_app/ticket_detail.html', {'ticket': ticket, 'user': user})
 

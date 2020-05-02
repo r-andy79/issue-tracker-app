@@ -5,11 +5,17 @@
   <p>{{ ticket.get_ticket_type_display }}</p>
   <p>{{ ticket.get_ticket_status_display }}</p>
   <p>{{ ticket.text }}</p>
-  <p>{{ user.id }}</p>
+  {% if user %}
+  <p>user id:{{ user.id }}</p>
+  {% endif %}
 </div>
+{% if user %}
 <a href="{% url 'ticket_vote' ticket_id=ticket.pk user_id=user.id %}">Vote</a>
+{% endif %}
 <div class="card-footer">
+  {% if user %}
   <a href="{% url 'add_comment_to_ticket' pk=ticket.pk %}">Add comment</a>
+  {% endif %}
   {% for comment in ticket.comments.all %}
   <p><span>{{ comment.author }}: </span>{{ comment }}</p>
   {% empty %}
