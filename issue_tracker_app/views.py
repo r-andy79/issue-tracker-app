@@ -14,7 +14,14 @@ def ticket_list(request):
     Create a view that will return a list of Tickets
     """
     tickets = Ticket.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'issue_tracker_app/ticket_list.html', {'tickets': tickets})
+    bugs = []
+    features = []
+    for ticket in tickets:
+        if ticket.ticket_type == 'B':
+            bugs.append(ticket)
+        else:
+            features.append(ticket)
+    return render(request, 'issue_tracker_app/ticket_list.html', {'bugs': bugs, 'features': features})
 
 
 def ticket_detail(request, pk):

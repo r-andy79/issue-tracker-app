@@ -5,32 +5,28 @@
   <div class="row">
     <div class="bugs-wrapper col-9">
       <h2>Bugs</h2>
-      {% for ticket in tickets %}
-      {% if ticket.ticket_type == 'B' %}
+      {% for bug in bugs %}
       <div class="bug-container">
-        <h2><a href="{% url 'ticket_detail' pk=ticket.pk %}">{{ ticket.title }}</a></h2>
-        <p>{{ ticket.text|truncatewords_html:5}}</p>
-        <p>{{ ticket.get_ticket_status_display }}</p>
-        <p>{{ ticket.get_ticket_type_display }}</p>
-        <p>{{ ticket.published_date }}</p>
-        <p>Comments: {{ item.comments.count }}</p>
+        <h2><a href="{% url 'ticket_detail' pk=bug.pk %}">{{ bug.title }}</a></h2>
+        <p>{{ bug.get_ticket_status_display }}</p>
+        <p>{{ bug.text|truncatewords_html:5}}</p>
+        <p>{{ bug.get_ticket_type_display }}</p>
+        <p>{{ bug.published_date }}</p>
+        <p>Comments: {{ bug.comments.count }}</p>
       </div>
-      {% endif %}
     {% endfor %}
   </div>
     <div class="features-wrapper col-3">
       <h2>Features</h2>
-      {% for ticket in tickets %}
-      {% if ticket.ticket_type == 'F' %}
+      {% for feature in features %}
       <div class="feature-container">
-        <h2><a href="{% url 'ticket_detail' pk=ticket.pk %}">{{ ticket.title }}</a></h2>
-        <p>{{ ticket.get_ticket_type_display }}</p>
-        <p>{{ ticket.text|truncatewords_html:5}}</p>
-        <p>{{ ticket.get_ticket_status_display }}</p>
-        <p>{{ ticket.published_date }}</p>
-        <p>Comments: {{ ticket.comments.count }}</p>
+        <h2><a href="{% url 'ticket_detail' pk=feature.pk %}">{{ feature.title }}</a></h2>
+        <p>{{ feature.get_ticket_type_display }}</p>
+        <p>{{ feature.text|truncatewords_html:5}}</p>
+        <p>{{ feature.get_ticket_status_display }}</p>
+        <p>{{ feature.published_date }}</p>
+        <p>Comments: {{ feature.comments.count }}</p>
       </div>
-      {% endif %}
       {% endfor %}
     </div>
   </div>
