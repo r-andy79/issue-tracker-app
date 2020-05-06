@@ -5,9 +5,7 @@
   <p>{{ ticket.get_ticket_type_display }}</p>
   <p>{{ ticket.get_ticket_status_display }}</p>
   <p>{{ ticket.text }}</p>
-  {% if user %}
   <p>user name:{{ ticket.author }}</p>
-  {% endif %}
 </div>
 {% if user %}
 <a href="{% url 'ticket_vote' ticket_id=ticket.pk user_id=user.id %}">Vote</a>
