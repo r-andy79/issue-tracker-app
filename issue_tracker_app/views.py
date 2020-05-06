@@ -13,7 +13,7 @@ def ticket_list(request):
     """
     Create a view that will return a list of Tickets
     """
-    tickets = Ticket.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    tickets = Ticket.objects.filter(published_date__lte=timezone.now())
     bugs = []
     features = []
     for ticket in tickets:

@@ -6,7 +6,7 @@
   <p>{{ ticket.get_ticket_status_display }}</p>
   <p>{{ ticket.text }}</p>
   {% if user %}
-  <p>user id:{{ user.id }}</p>
+  <p>user name:{{ ticket.author }}</p>
   {% endif %}
 </div>
 {% if user %}

@@ -1,9 +1,10 @@
 {% extends 'issue_tracker_app/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <h2>New Post</h2>
 <form method="POST">
   {% csrf_token %}
-  {{ form.as_p}}
+  {{ form|crispy}}
   <button type="submit">Save</button>
 </form>
 {% endblock %}
