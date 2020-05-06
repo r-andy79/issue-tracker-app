@@ -1,11 +1,11 @@
 {% extends 'issue_tracker_app/base.html' %}
 {% block content %}
 <div class="ticket">
-  <h2>{{ ticket.title}}</h2>
-  <p>{{ ticket.get_ticket_type_display }}</p>
-  <p>{{ ticket.get_ticket_status_display }}</p>
-  <p>{{ ticket.text }}</p>
-  <p>user name:{{ ticket.author }}</p>
+  <h2>Ticket title: {{ ticket.title}}</h2>
+  <p>ticket type: {{ ticket.get_ticket_type_display }}</p>
+  <p>ticket status: {{ ticket.get_ticket_status_display }}</p>
+  <p>description: {{ ticket.text }}</p>
+  <p>author name: {{ ticket.author }}</p>
 </div>
 {% if user %}
 <a href="{% url 'ticket_vote' ticket_id=ticket.pk user_id=user.id %}">Vote</a>
