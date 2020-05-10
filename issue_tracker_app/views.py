@@ -21,6 +21,10 @@ def ticket_list(request):
             bugs.append(ticket)
         else:
             features.append(ticket)
+
+    def bugs_srt(bug):
+        return bug.upvotes.count()
+    bugs.sort(reverse=True, key=bugs_srt)
     return render(request, 'issue_tracker_app/ticket_list.html', {'bugs': bugs, 'features': features})
 
 
