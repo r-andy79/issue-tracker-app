@@ -55,12 +55,17 @@ def ticket_new(request):
 @login_required(login_url='/accounts/login')
 def ticket_edit(request, ticket_id):
     ticket = Ticket.objects.get(id=ticket_id)
+    user = request.user
     form = TicketForm(request.POST or None, instance = ticket)
-    if form.is_valid():
-        ticket.save()
-        return redirect(reverse('ticket_list'))
+    if ticket.author == user:
+        if form.is_valid():
+            ticket.save()
+            return redirect(reverse('ticket_list'))
+        else:
+            return render(request, 'issue_tracker_app/ticket_edit.html', {'ticket': ticket, 'form': form})
     else:
-        return render(request, 'issue_tracker_app/ticket_edit.html', {'ticket': ticket, 'form': form})
+        messages.error(request, 'You are not authorized to edit this post')
+    return redirect(ticket_detail, pk=ticket_id)
 
 
 @login_required(login_url='/accounts/login')
