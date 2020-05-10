@@ -9,6 +9,7 @@
 </div>
 {% if user %}
 <a href="{% url 'ticket_vote' ticket_id=ticket.pk user_id=user.id %}">Vote</a>
+<a href="{% url 'ticket_edit' ticket_id=ticket.pk%}">Edit</a>
 {% endif %}
 <div class="card-footer">
   {% if user %}

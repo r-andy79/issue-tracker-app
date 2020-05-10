@@ -49,7 +49,18 @@ def ticket_new(request):
             return redirect('ticket_detail', pk=ticket.pk)
     else:
         form = TicketForm()
-    return render(request, 'issue_tracker_app/ticket_edit.html', {'form': form})
+    return render(request, 'issue_tracker_app/ticket_new.html', {'form': form})
+
+
+@login_required(login_url='/accounts/login')
+def ticket_edit(request, ticket_id):
+    ticket = Ticket.objects.get(id=ticket_id)
+    form = TicketForm(request.POST or None, instance = ticket)
+    if form.is_valid():
+        ticket.save()
+        return redirect(reverse('ticket_list'))
+    else:
+        return render(request, 'issue_tracker_app/ticket_edit.html', {'ticket': ticket, 'form': form})
 
 
 @login_required(login_url='/accounts/login')
