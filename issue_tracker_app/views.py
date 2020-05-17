@@ -7,6 +7,8 @@ from .models import Ticket, Comment, Vote
 from .forms import TicketForm, UserLoginForm, UserRegistrationForm, CommentForm
 from django.db import IntegrityError
 from crispy_forms.helper import FormHelper
+import stripe
+from .payment import create
 
 # Create your views here.
 def ticket_list(request):
@@ -66,6 +68,19 @@ def ticket_edit(request, ticket_id):
     else:
         messages.error(request, 'You are not authorized to edit this post')
     return redirect(ticket_detail, pk=ticket_id)
+
+@login_required(login_url='/accounts/login')
+def checkout(request):
+    session_id = create()
+    print(session_id)
+    return render(request, 'issue_tracker_app/checkout.html', {'session_id': session_id})
+
+@login_required(login_url='/accounts/login')
+def success(request):
+    session_id = request.GET.get('session_id')
+    line_items = stripe.checkout.Session.list_line_items(session_id, limit=5)
+    print(line_items.data)
+    return render(request, 'issue_tracker_app/success.html', {'session_id': session_id, 'line_items': line_items})
 
 
 @login_required(login_url='/accounts/login')

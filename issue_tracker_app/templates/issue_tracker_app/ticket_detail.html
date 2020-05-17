@@ -1,26 +1,30 @@
 {% extends 'issue_tracker_app/base.html' %}
 {% block content %}
 <div class="ticket">
-  <h2>Ticket title: {{ ticket.title}}</h2>
-  <p>ticket type: {{ ticket.get_ticket_type_display }}</p>
-  <p>ticket status: {{ ticket.get_ticket_status_display }}</p>
-  <p>description: {{ ticket.text }}</p>
-  <p>author name: {{ ticket.author }}</p>
+    <h2>Ticket title: {{ ticket.title}}</h2>
+    <p>ticket type: {{ ticket.get_ticket_type_display }}</p>
+    <p>ticket status: {{ ticket.get_ticket_status_display }}</p>
+    <p>description: {{ ticket.text }}</p>
+    <p>author name: {{ ticket.author }}</p>
 </div>
 {% if user %}
-<a href="{% url 'ticket_vote' ticket_id=ticket.pk user_id=user.id %}">Vote</a>
+    {% if ticket.ticket_type == "B" %}
+        <a href="{% url 'ticket_vote' ticket_id=ticket.pk user_id=user.id %}">Vote</a>
+    {% else %}
+    <a href="{% url 'checkout' %}">Pay to Vote</a>
+    {% endif %}
 {% endif %}
 {% if ticket.author.id == user.id %}
 <a href="{% url 'ticket_edit' ticket_id=ticket.pk%}">Edit</a>
 {% endif %}
 <div class="card-footer">
-  {% if user %}
-  <a href="{% url 'add_comment_to_ticket' pk=ticket.pk %}">Add comment</a>
-  {% endif %}
-  {% for comment in ticket.comments.all %}
-  <p><span>{{ comment.author }}: </span>{{ comment }}</p>
-  {% empty %}
-  <p>No comments here yet</p>
-  {% endfor %}
+    {% if user %}
+    <a href="{% url 'add_comment_to_ticket' pk=ticket.pk %}">Add comment</a>
+    {% endif %}
+    {% for comment in ticket.comments.all %}
+    <p><span>{{ comment.author }}: </span>{{ comment }}</p>
+    {% empty %}
+    <p>No comments here yet</p>
+    {% endfor %}
 </div>
 {% endblock %}
